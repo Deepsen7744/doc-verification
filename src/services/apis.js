@@ -12,7 +12,8 @@ export const instituteEndpoints = {
     PUT_DISPLAY_PICTURE_INSTITUTE_API: BASE_URL + "/updateDisplayPicture-institute",
     GET_NON_APPROVED_APPLICATIONS: BASE_URL + "/get-student-application",
     GET_APPROVED_APPLICATIONS: BASE_URL + "/get-approved-student",
-    PUT_APPROVE_CERTIFICATE: BASE_URL + "/approve-certificate"
+    PUT_APPROVE_CERTIFICATE: BASE_URL + "/approve-certificate",
+    Get_Institutes: BASE_URL+ "/institutes"
 }  
 
 export const studentEndpoints = {

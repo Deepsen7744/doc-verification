@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import { getCerificates } from "../../services/operations/StudentOperations";
+import { getNonApprovedApplications } from '../../services/operations/InstituteOperations';
 
-function MyCertificates() {
+function CertificateApplication() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
       console.log(result.id);
-      const response = await getCerificates(result.id);
-      setData(response.data.Applications);
-      console.log(data);
+      const response = await getNonApprovedApplications(result.id);
+      const sample = response.data.CertificateRequest;
+      console.log(sample);
+      setData(sample);
       setDashboardLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -23,9 +24,10 @@ function MyCertificates() {
     fetchData();
   }, [result.id]);
 
+
   return (
     <div>
-      <h2>My Certificates</h2>
+      <h2>Applications for certificates</h2>
       <div>
         {dashboardLoading ? (
           <div>loading..</div>
@@ -34,12 +36,13 @@ function MyCertificates() {
             {data.map((item) => (
               <div key={item._id}>
                 <p>AppliedAt: {item.AppliedAt}</p>
-                <p>StartDate: {item.StartDate}</p>
                 <p>EndDate: {item.EndDate}</p>
-                <p>Institute Id: {item.InstituteId}</p>
-                <p>Name on certificate: {item.StudentName}</p>
-                <p>Course: {item.courseName}</p>
-                <p>Status: {item.status}</p>
+                <p>InstituteId: {item.InstituteId}</p>
+                <p>StartDate: {item.StartDate}</p>
+                <p>StudentId: {item.StudentId}</p>
+                <p>StudentName: {item.StudentName}</p>
+                <p>courseName: {item.courseName}</p>
+                <p>status: {item.status}</p>
               </div>
             ))
           }
@@ -50,4 +53,4 @@ function MyCertificates() {
   );
 }
 
-export default MyCertificates;
+export default CertificateApplication;

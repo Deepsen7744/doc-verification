@@ -7,8 +7,28 @@ const {
     PUT_DISPLAY_PICTURE_INSTITUTE_API,
     GET_NON_APPROVED_APPLICATIONS,
     GET_APPROVED_APPLICATIONS,
-    PUT_APPROVE_CERTIFICATE
+    PUT_APPROVE_CERTIFICATE,
+    Get_Institutes
 } = instituteEndpoints;
+
+export const RegisteredInst = async () => {
+    const toastId = toast.loading("Loading...");
+    const url = `${Get_Institutes}`;
+    let result = [];
+    try {
+        const response = await apiConnector("GET", url);
+        console.log("All the registered institutes are .....", response);
+        if (!response?.data?.success) {
+            throw new Error(response.data.message)
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Cannot get all registered institutes error ......", error);
+        result = error.response.data;
+    }
+    toast.dismiss(toastId);
+    return result;
+};
 
 export const createInstitute = async (values) => {
     const toastId = toast.loading("Loading...");

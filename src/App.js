@@ -13,12 +13,12 @@ import GovProfile from "./components/Goverment/GovProfile";
 import InsttituteApplications from "./components/Goverment/InstituteApplications";
 import RegisteredInstitute from "./components/Goverment/RegisteredInstitute";
 import InstituteProfile from "./components/Institute/InstituteProfile";
-import CertificateApplication from "./components/Institute/CerificateApplication";
 import AddCourses from "./components/Institute/AddCourses";
 import GivenCertificates from "./components/Institute/GivenCertificates";
 import StudentProfile from "./components/Student/StudentProfile";
 import Application from "./components/Student/Application";
 import MyCertificates from "./components/Student/MyCertificates";
+import CertificateApplication from "./components/Institute/CertificateApplication";
 const dotenv = require("dotenv");
 
 dotenv.config();

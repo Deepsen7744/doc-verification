@@ -152,3 +152,19 @@ exports.approveCertificate = async (req, res)=> {
       });
     }
 }
+
+exports.RegisteredInstitute = async (req, res)=> {
+  try{
+      const institute = await Institute.find({ Approved: "Approved" });
+      res.send({
+          success: true,
+          message: `Got All Approved Institutes`,
+          data: institute,
+        })
+  } catch(error){
+      return res.status(500).json({
+          success: false,
+          message: "Could not get Approved Institutes. Please try again.",
+        });
+  }
+};

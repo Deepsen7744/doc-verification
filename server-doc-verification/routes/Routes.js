@@ -15,7 +15,8 @@ const {
     updateDisplayPicture,
     GetAllNotApprovedApplications,
     GetAllApprovedApplications,
-    approveCertificate
+    approveCertificate,
+    RegisteredInstitute
 } = require("../controllers/Institute");
 
 // student
@@ -48,6 +49,7 @@ router.put("/updateDisplayPicture-institute",isInstitute,updateDisplayPicture)
 router.get("/get-student-application",isInstitute,GetAllNotApprovedApplications)
 router.get("/get-approved-student",isInstitute,GetAllApprovedApplications)
 router.put("/approve-certificate",isInstitute,approveCertificate)
+router.get("/institutes",RegisteredInstitute);
 
 // stuident routes
 router.post("/student-signup",signupStudent)

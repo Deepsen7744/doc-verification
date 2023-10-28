@@ -27,7 +27,7 @@ export const createStudent = async (values) => {
     return result;
 };
 
-export const dpInstitute = async (id) => {
+export const dpStudent = async (id) => {
     const toastId = toast.loading("Loading...");
     const url =`${PUT_DISPLAY_PICTURE_STUDENT_API}?id=${id}`
     let result = null;
@@ -46,12 +46,12 @@ export const dpInstitute = async (id) => {
     return result;
 };
 
-export const cerificateApplication = async (id) => {
+export const cerificateApplication = async (id,data) => {
     const toastId = toast.loading("Loading...");
     const url =`${POST_CERTIFICATE_APPLICATION_API}?id=${id}`
     let result = [];
     try {
-        const response = await apiConnector("POST", url);
+        const response = await apiConnector("POST", url, data);
         console.log("Cerificate application .....", response);
         if (!response?.data?.success) {
             throw new Error(response.data.message)
