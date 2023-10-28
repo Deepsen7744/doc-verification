@@ -1,4 +1,5 @@
-import {useAuthStatus} from "../hooks/useAuthStatus";
+// import { useAuthStatus } from "../../../hooks/useAuthStatus";
+import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {

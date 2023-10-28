@@ -5,6 +5,15 @@ export const AppContext = createContext();
 
 export default function AppContextProvider ({children}) {
 
+    const [dashboardLoading, setDashboardLoading] = useState(false);
+    const [result, setResult] = useState({
+      isLoading: true,
+      isAuthorized: false,
+      username: "",
+      email: "",
+      id: ""
+    });
+
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     const [provider, setProvider] = useState(null);
@@ -277,7 +286,11 @@ export default function AppContextProvider ({children}) {
       registerInstitute,
       registerStudent,
       rejectInstitute,
-      uploadCertificate
+      uploadCertificate,
+      dashboardLoading, 
+      setDashboardLoading,
+      result, 
+      setResult
     }
 
     return <AppContext.Provider value={value}>

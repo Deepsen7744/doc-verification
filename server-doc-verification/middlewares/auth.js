@@ -54,7 +54,7 @@ exports.auth = async (req, res) =>{
         } 
     }catch(error){
             // authentication failed
-            console.log(e);
+            console.log(error);
             res.send({
             authStatus: "failure",
             });

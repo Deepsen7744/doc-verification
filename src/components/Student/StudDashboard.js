@@ -1,4 +1,5 @@
 import React, { useEffect,useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import {abi} from "../../Abi";
 const ethers = require("ethers");
@@ -38,11 +39,13 @@ function StudDashboard() {
     provider && loadProvider();
   }, []);
 
-  return(<div>StudDashboard Acc: {account}</div>);
+  return(
+  <div>
+  <p>StudDashboard Acc: {account}</p>
+  <Link to={"/dashboard/student/student-profile"}><button>Student profile</button></Link>
+  <Link to={"/dashboard/student/student-application"}><button>Application</button></Link>
+  <Link to={"/dashboard/student/my-certificates"}><button>My Certificates</button></Link>
+  </div>);
 }
 
 export default StudDashboard
-
-// profile
-// certificates
-// locker

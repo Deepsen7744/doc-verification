@@ -6,6 +6,7 @@ exports.createGov = async (req,res) => {
     const {
       email,
       AccountNumber,
+      PrivateKey
     } = req.body;
     if(
       !email ||
@@ -33,7 +34,8 @@ exports.createGov = async (req,res) => {
     }
     const goverment = await Goverment.create({
       email,
-      AccountNumber
+      AccountNumber,
+      PrivateKey
       });
 
       return res.status(200).json({

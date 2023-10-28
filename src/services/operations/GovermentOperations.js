@@ -27,7 +27,7 @@ export const createGoverment = async (values) => {
     return result;
 };
 
-export const grtNonRegisteredInst = async (id) => {
+export const getNonRegisteredInst = async (id) => {
     const toastId = toast.loading("Loading...");
     const url = `${GET_NON_REGISTERED_INSTITUTES_API}?id=${id}`;
     let result = [];
@@ -46,7 +46,7 @@ export const grtNonRegisteredInst = async (id) => {
     return result;
 };
 
-export const grtRegisteredInst = async (id) => {
+export const getRegisteredInst = async (id) => {
     const toastId = toast.loading("Loading...");
     const url = `${GET_REGISTERED_INSTITUTES_API}?id=${id}`;
     let result = [];
@@ -67,7 +67,7 @@ export const grtRegisteredInst = async (id) => {
 
 export const approveInst = async (id,instid) => {
     const toastId = toast.loading("Loading...");
-    const url = `${PUT_APPROVE_INSTITUTE_API}?id=${id}?instid=${instid}`;
+    const url = `${PUT_APPROVE_INSTITUTE_API}?id=${id}&instid=${instid}`;
     let result = [];
     try {
         const response = await apiConnector("PUT", url);

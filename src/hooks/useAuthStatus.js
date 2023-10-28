@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import axios from "axios";
 
 const API_URL = "http://localhost:4000/api/v1";
 
 export function useAuthStatus() {
-  const [result, setResult] = useState({
-    isLoading: true,
-    isAuthorized: false,
-    username: "",
-    email: "",
-    id: ""
-  });
+  
+  const {result, setResult} = useContext(AppContext);
 
   useEffect(() => {
     let cancelRequest = false;

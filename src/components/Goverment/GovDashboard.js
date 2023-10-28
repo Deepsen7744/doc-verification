@@ -1,4 +1,5 @@
 import React, { useEffect,useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import {abi} from "../../Abi";
 const ethers = require("ethers");
@@ -38,12 +39,15 @@ function GovDashboard() {
     provider && loadProvider();
   }, []);
 
-  return(<div>GovermentDashboard Acc: {account}</div>);
+  return(
+  <div>
+    <p>GovermentDashboard Acc: {account}</p>
+    <div>
+    <Link to={"/dashboard/goverment/goverment-profile"}><button>Gov Profile</button></Link>
+    <Link to={"/dashboard/goverment/institute-applications"}><button>Institute Applications</button></Link>
+    <Link to={"/dashboard/goverment/registered-institutes"}><button>Registered Institute</button></Link>
+    </div>
+  </div>);
 }
 
 export default GovDashboard
-
-
-// profile
-// institue applicatiins
-// approved applications

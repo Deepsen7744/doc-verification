@@ -1,4 +1,5 @@
 import React, { useEffect,useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import {abi} from "../../Abi";
 const ethers = require("ethers");
@@ -38,13 +39,14 @@ function InstDashboard() {
     provider && loadProvider();
   }, []);
 
-  return(<div>InstDashboard acc:{account}</div>);
+  return(
+  <div>
+  <p>InstDashboard acc:{account}</p>
+  <Link to={"/dashboard/institute/institute-profile"}><button>Institute Profile</button></Link>
+  <Link to={"/dashboard/institute/add-courses"}><button>AddCourses</button></Link>
+  <Link to={"/dashboard/institute/certificate-application"}><button>Certificate Applications</button></Link>
+  <Link to={"/dashboard/institute/given-certificates"}><button>Given Certificates</button></Link>
+  </div>);
 }
 
 export default InstDashboard
-
-
-// profile
-// add courses
-// certificate applications
-// given certificates
