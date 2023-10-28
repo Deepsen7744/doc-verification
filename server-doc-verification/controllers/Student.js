@@ -1,0 +1,185 @@
+const Student=require("../models/Student");
+const Application=require("../models/Application");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
+const Institute = require("../models/Institute");
+
+exports.signupStudent = async (req, res) => {
+    try {
+        const{
+            email,
+            AccountNumber
+        } = req.body;
+
+        if(
+            !email ||
+            !AccountNumber
+        ){
+            return res.status(403).send({
+				success: false,
+				message: "All Fields are required",
+			  });
+        }
+
+        const existingStudent = await Student.findOne({ email });
+		if (existingStudent) {
+			return res.status(400).json({
+				success: false,
+				message: "Student already exists. Please sign in to continue.",
+			});
+		}
+
+        const student = await Student.create({
+            email,
+            AccountNumber,
+			      image: `https://api.dicebear.com/5.x/initials/svg?seed=${email}`,
+        });
+
+        return res.status(200).json({
+            success: true,
+            student,
+            message: "Student registered successfully",
+      });
+
+    } catch(error){
+        console.error(error);
+          return res.status(500).json({
+            success: false,
+            message: "Student cannot be registered. Please try again.",
+          });
+    }
+};
+
+exports.updateDisplayPictureStudent = async (req, res) => {
+    try {
+      const displayPicture = req.files.displayPicture
+      const StudentId = req.query.id
+      const image = await uploadImageToCloudinary(
+        displayPicture,
+        process.env.FOLDER_NAME,
+        1000,
+        1000
+      )
+      console.log(image)
+      const updatedProfile = await Student.findByIdAndUpdate(
+        { _id: StudentId },
+        { image: image.secure_url },
+        { new: true }
+      )
+      res.send({
+        success: true,
+        message: `Image Updated successfully`,
+        data: updatedProfile,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
+    }
+};
+
+exports.CertificateApplication = async(req, res)=> {
+  try{
+    const StudentId=req.query.id;
+
+    const {
+      StudentName,
+      InstituteId,
+      courseName,
+      StartDate,
+      EndDate,
+    } = req.body;
+
+    if(
+      !StudentId ||
+      !StudentName ||
+      !InstituteId ||
+      !courseName ||
+      !StartDate ||
+      !EndDate 
+  ){
+      return res.status(400).send({
+        success: false,
+        message: "All Fields are required",
+  });
+  } 
+
+  const conditions = {
+      StudentId:StudentId,
+      InstituteId:InstituteId,
+      courseName:courseName
+  };
+
+  const existingApplication = await Application.findOne(conditions);
+		if (existingApplication) {
+			return res.status(400).json({
+				success: false,
+				message: "This application has already been submited",
+			});
+		}
+
+  const application = await Application.create({
+    StudentId,
+    StudentName,
+    InstituteId,
+    courseName,
+    StartDate,
+    EndDate,
+    status:"NotApproved"
+  }); 
+
+  const student = await Student.findById(StudentId);
+    if (student) {
+      student.Applications.push(application._id);
+      await student.save();
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Student not found',
+      });
+    }
+
+    const institute = await Institute.findById(InstituteId);
+    if (institute) {
+      institute.CertificateRequest.push(application._id);
+      await institute.save();
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: 'Institute not found',
+      });
+    }  
+  
+  return res.status(200).json({
+    success: true,
+    application,
+    message: "Applied for certificate successfully",
+  });
+
+  } catch(error){
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Cannot Applied successfully. Please try again.",
+    });
+  }
+};
+
+exports.GetAllCertificates = async (req, res)=> {
+  try{
+		const id = req.query.id;
+    const student = await Student.findById(id)
+                      .populate("Applications")
+                      .exec();                     
+    res.send({
+        success: true,
+        message: `Got All Applications`,
+        data: student,
+      })
+} catch(error){
+    return res.status(500).json({
+        success: false,
+        message: "Could not get all Applications. Please try again.",
+      });
+}
+};

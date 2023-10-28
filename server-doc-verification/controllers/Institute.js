@@ -1,0 +1,154 @@
+const Institute = require("../models/Institute");
+const Application = require("../models/Application");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
+
+exports.signup = async (req, res) => {
+    try {
+        const{
+            email,
+            AccountNumber
+        } = req.body;
+
+        if(
+            !email ||
+            !AccountNumber
+        ){
+            return res.status(403).send({
+            success: false,
+            message: "All Fields are required",
+          });
+        }
+
+        const existingInstitute = await Institute.findOne({ email });
+		if (existingInstitute) {
+			return res.status(400).json({
+				success: false,
+				message: "Institute already exists. Please sign in to continue.",
+			});
+		}
+
+        const institute = await Institute.create({
+            email,
+            AccountNumber,
+            Approved: "NotApproved",
+		        image: `https://api.dicebear.com/5.x/initials/svg?seed=${email}`,
+        });
+
+        return res.status(200).json({
+            success: true,
+            institute,
+            message: "Institute registered successfully",
+      });
+
+    } catch(error){
+        console.error(error);
+          return res.status(500).json({
+            success: false,
+            message: "Institute cannot be registered. Please try again.",
+          });
+    }
+};
+
+exports.updateDisplayPicture = async (req, res) => {
+    try {
+      const displayPicture = req.files.displayPicture
+      const InstituteId = req.query.id
+      const image = await uploadImageToCloudinary(
+        displayPicture,
+        process.env.FOLDER_NAME,
+        1000,
+        1000
+      )
+      console.log(image)
+      const updatedProfile = await Institute.findByIdAndUpdate(
+        { _id: InstituteId },
+        { image: image.secure_url },
+        { new: true }
+      )
+      res.send({
+        success: true,
+        message: `Image Updated successfully`,
+        data: updatedProfile,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
+    }
+};
+
+exports.GetAllNotApprovedApplications = async (req, res)=> {
+    try{
+        const institutesWithNotApprovedCertificates = await Institute.findById(req.query.id)
+                          .populate({
+                            path: 'CertificateRequest',
+                            match: { status: 'NotApproved' }, 
+                            model: 'application',
+                          })
+                          .exec();                     
+        res.send({
+            success: true,
+            message: `Got All NotApproved Applications`,
+            data: institutesWithNotApprovedCertificates,
+          })
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Could not get NotApproved Applications. Please try again.",
+          });
+    }
+};
+
+exports.GetAllApprovedApplications = async (req, res)=> {
+
+
+    try{
+        const institutesWithApprovedCertificates = await Institute.findById(req.query.id)
+                          .populate({
+                            path: 'CertificateRequest',
+                            match: { status: 'Approved' }, 
+                            model: 'application',
+                          })
+                          .exec();  
+            
+        res.send({
+            success: true,
+            message: `Got All Approved Applications`,
+            data: institutesWithApprovedCertificates,
+          })
+    } catch(error){
+        return res.status(500).json({
+            success: false,
+            message: "Could not get Approved Applications. Please try again.",
+          });
+    }
+};
+
+exports.approveCertificate = async (req, res)=> {
+    try {
+    
+      const application = await Application.findById(req.query.aplid);
+    
+      if (application) {
+        application.status = "Approved";
+        await application.save();
+        res.send({
+          success: true,
+          message: 'done',
+          data: application
+        })
+
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: 'Application not found',
+        });
+      } 
+    } catch(error) {
+      return res.status(500).json({
+        success: false,
+        message: "Could not get Approved Certificate. Please try again.",
+      });
+    }
+}
