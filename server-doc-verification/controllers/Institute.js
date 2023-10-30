@@ -6,12 +6,16 @@ exports.signup = async (req, res) => {
     try {
         const{
             email,
-            AccountNumber
+            AccountNumber,
+            instituteName,
+            contactNumber,
         } = req.body;
 
         if(
+            !contactNumber||
             !email ||
-            !AccountNumber
+            !AccountNumber||
+            !instituteName
         ){
             return res.status(403).send({
             success: false,
@@ -28,6 +32,8 @@ exports.signup = async (req, res) => {
 		}
 
         const institute = await Institute.create({
+            instituteName,
+            contactNumber,
             email,
             AccountNumber,
             Approved: "NotApproved",

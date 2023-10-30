@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getCerificates } from "../../services/operations/StudentOperations";
 
+// bc se nikal ke dhikha
+
 function MyCertificates() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
   const [data, setData] = useState([]);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { cerificateApplication } from '../../services/operations/StudentOperations';
 import { AppContext } from '../../context/AppContext';
 import { useContext } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { RegisteredInst } from "../../services/operations/InstituteOperations";
 
 function Application() {
@@ -47,14 +47,14 @@ function Application() {
       </div>
 
       <div>
-        <label>Institute ID:</label>
+        <label>Institute Name:</label>
         <select className='w-32' {...register("InstituteId", { required: 'Institute ID is required' })}>
           {dashboardLoading ? (
             <option value="">Loading Institutes...</option>
           ) : (
             data.map(institute => (
               <option key={institute._id} value={institute._id}>
-                {institute.AccountNumber}
+                {institute.instituteName}
               </option>
             ))
           )}

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { abi } from "../Abi";
 const {ethers} = require("ethers");
 
 export const AppContext = createContext();
@@ -207,6 +208,7 @@ export default function AppContextProvider ({children}) {
     async function registerInstitute(_instituteAddress,_instituteData){
       try{
         await contract.registerInstitute(_instituteAddress,_instituteData);
+        console.log("success");
       } catch(error){
             if (error.data) {
               const abiCoder = new ethers.utils.AbiCoder();
@@ -214,7 +216,7 @@ export default function AppContextProvider ({children}) {
               const reason = data[0];
               console.error("Revert reason:", reason);
           } else {
-              console.error("Error data not available.");
+              console.log(error);
           }
       }
     }

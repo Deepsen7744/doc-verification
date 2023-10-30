@@ -12,7 +12,7 @@ const GovermentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    PrivateKey: {
+    state: {
         type: String,
         required: true,
         trim: true

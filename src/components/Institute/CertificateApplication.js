@@ -38,6 +38,7 @@ function CertificateApplication() {
                 <p>AppliedAt: {item.AppliedAt}</p>
                 <p>EndDate: {item.EndDate}</p>
                 <p>InstituteId: {item.InstituteId}</p>
+                <p>Institute Name: {item.instituteName}</p>
                 <p>StartDate: {item.StartDate}</p>
                 <p>StudentId: {item.StudentId}</p>
                 <p>StudentName: {item.StudentName}</p>

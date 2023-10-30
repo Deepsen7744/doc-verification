@@ -6,6 +6,8 @@ function RegisteredInstitute() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
   const [data, setData] = useState([]);
 
+  // bc se nikal ke dhikhao
+  
   const fetchData = async () => {
     try {
       console.log(result.id);
@@ -22,17 +24,6 @@ function RegisteredInstitute() {
   useEffect(() => {
     fetchData();
   }, [result.id]);
-
-  // const handleApprove = async (id) => {
-  //   try {
-  //     setDashboardLoading(true);
-  //     await approveInst(result.id, id);
-  //     fetchData(); // Fetch data again after approval
-  //   } catch (error) {
-  //     console.error('Error approving institute:', error);
-  //     setDashboardLoading(false);
-  //   }
-  // };
 
   return (
     <div>

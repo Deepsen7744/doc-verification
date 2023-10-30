@@ -6,11 +6,17 @@ const Institute = require("../models/Institute");
 exports.signupStudent = async (req, res) => {
     try {
         const{
+            name,
+            tel,
+            date,
             email,
             AccountNumber
         } = req.body;
 
         if(
+            !name||
+            !tel||
+            !date||
             !email ||
             !AccountNumber
         ){
@@ -29,6 +35,9 @@ exports.signupStudent = async (req, res) => {
 		}
 
         const student = await Student.create({
+            name,
+            tel,
+            date,
             email,
             AccountNumber,
 			      image: `https://api.dicebear.com/5.x/initials/svg?seed=${email}`,
@@ -83,6 +92,7 @@ exports.CertificateApplication = async(req, res)=> {
     const StudentId=req.query.id;
 
     const {
+      instituteName,
       StudentName,
       InstituteId,
       courseName,
@@ -91,6 +101,7 @@ exports.CertificateApplication = async(req, res)=> {
     } = req.body;
 
     if(
+      !instituteName||
       !StudentId ||
       !StudentName ||
       !InstituteId ||
@@ -119,6 +130,7 @@ exports.CertificateApplication = async(req, res)=> {
 		}
 
   const application = await Application.create({
+    instituteName,
     StudentId,
     StudentName,
     InstituteId,

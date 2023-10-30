@@ -1,6 +1,18 @@
 const mongoose=require("mongoose");
 
 const InstituteSchema = new mongoose.Schema({
+    
+    instituteName: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
+    contactNumber: {
+        type: String,
+        required: true,
+        trim: true,
+    },
 
     email: {
         type: String,

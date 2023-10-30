@@ -2,6 +2,10 @@ const mongoose=require("mongoose");
 
 const ApplicationSchema = new mongoose.Schema({
 
+    instituteName:{
+        type: String,
+        required: true,   
+    },
     StudentId: {
 		type: mongoose.Schema.Types.ObjectId,
         required: true,

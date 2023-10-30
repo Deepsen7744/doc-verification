@@ -19,6 +19,10 @@ import StudentProfile from "./components/Student/StudentProfile";
 import Application from "./components/Student/Application";
 import MyCertificates from "./components/Student/MyCertificates";
 import CertificateApplication from "./components/Institute/CertificateApplication";
+import GovernmentSignupForm from "./components/Home/GovSignup";
+import GovSignup from "./components/Home/GovSignup";
+import InstSignup from "./components/Home/InstSignup";
+import StudSignup from "./components/Home/StudSignup";
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -47,6 +51,9 @@ function App() {
         <Route path="/dashboard/student/student-profile" element={<StudentProfile/>}/>
         <Route path="/dashboard/student/student-application" element={<Application/>}/>
         <Route path="/dashboard/student/my-certificates" element={<MyCertificates/>}/>
+        <Route path="/signup/goverment" element={<GovSignup/>}/>
+        <Route path="/signup/institute" element={<InstSignup/>}/>
+        <Route path="/signup/student" element={<StudSignup/>}/>
     </Routes>
     </div>
   );
