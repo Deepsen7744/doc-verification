@@ -3,7 +3,7 @@ import { AppContext } from '../../context/AppContext';
 import { getNonRegisteredInst, approveInst } from "../../services/operations/GovermentOperations";
 
 function InsttituteApplications() {
-  const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
+  const { result,dashboardLoading, setDashboardLoading, approveInstitute } = useContext(AppContext);
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
@@ -23,10 +23,12 @@ function InsttituteApplications() {
     fetchData();
   }, [result.id]);
 
-  const handleApprove = async (id) => {
+  const handleApprove = async (id,AccountNumber) => {
     try {
+      console.log(id,AccountNumber);
       setDashboardLoading(true);
       await approveInst(result.id, id);
+      await approveInstitute(AccountNumber);
       fetchData(); // Fetch data again after approval
     } catch (error) {
       console.error('Error approving institute:', error);
@@ -50,7 +52,7 @@ function InsttituteApplications() {
                 <img src={item.image} alt={item.email} />
 
                 {item.Approved === 'NotApproved' && (
-                  <button onClick={() => handleApprove(item._id)}>Approve</button>
+                  <button onClick={() => handleApprove(item._id,item.AccountNumber)}>Approve</button>
                 )}
               </div>
             ))

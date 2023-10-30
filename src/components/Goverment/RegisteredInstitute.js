@@ -5,9 +5,9 @@ import { getRegisteredInst } from "../../services/operations/GovermentOperations
 function RegisteredInstitute() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
   const [data, setData] = useState([]);
-
-  // bc se nikal ke dhikhao
   
+  // info blockchain se nikall ke dhikhana
+
   const fetchData = async () => {
     try {
       console.log(result.id);
@@ -35,7 +35,9 @@ function RegisteredInstitute() {
           <div>
             {data.map((item) => (
               <div key={item._id}>
+                <p>Name: {item.instituteName}</p>
                 <p>Email: {item.email}</p>
+                <p>Contact Number: {item.contactNumber}</p>
                 <p>Account Number: {item.AccountNumber}</p>
                 <p>Approved: {item.Approved}</p>
                 <img src={item.image} alt={item.email} />

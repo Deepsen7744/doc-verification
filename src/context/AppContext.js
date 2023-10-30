@@ -175,9 +175,9 @@ export default function AppContextProvider ({children}) {
       }
     }
 
-    async function approveInstitute(_instituteAddress,_courseNames){
+    async function approveInstitute(_instituteAddress){
       try{
-        await contract.approveInstitute(_instituteAddress,_courseNames);
+        await contract.approveInstitute(_instituteAddress);
       } catch(error){
             if (error.data) {
               const abiCoder = new ethers.utils.AbiCoder();

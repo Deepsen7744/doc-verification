@@ -18,7 +18,7 @@ contract DocVerification {
         address studentAddress;
         string studentData;
         string[] transactionHash; 
-        mapping (string => string) ipfsHash; // mapping of the transaction hash with the ipfs hash
+        mapping (string => string) ipfsHash;
     }
 
     mapping(address => Student) public students;
@@ -29,15 +29,15 @@ contract DocVerification {
         string transactionHash;
     }
 
-    mapping (string => Certificate) certificates; // get certificate info from transaction hash
+    mapping (string => Certificate) certificates; 
 
     struct Institute {
         address instituteAddress;
         string instituteData;
-        string[] course; // to store the name of the course it provides
+        string[] course; 
         address[] enrolledStudents;
-        mapping(string => address[]) studentsByCourse; // Map course name to enrolled student addresses
-        mapping(string => string[]) allCertificateInCourse; // map course name with all transaction hash that provided certificates
+        mapping(string => address[]) studentsByCourse; 
+        mapping(string => string[]) allCertificateInCourse; 
         bool isApprovedByInstitute;
         bool isApprovedByGovernment;
     }
@@ -54,6 +54,7 @@ contract DocVerification {
         newInstitute.instituteData = _instituteData;
         newInstitute.course = new string[](0);
         newInstitute.enrolledStudents = new address[](0);
+        // newInstitute.isApprovedByInstitute = true;
         newInstitute.isApprovedByInstitute = false;
         newInstitute.isApprovedByGovernment = false;
     }
@@ -160,7 +161,13 @@ contract DocVerification {
             Institute storage institute = institutes[_instituteAddress];
             require(institute.instituteAddress != address(0), "Institute does not exist");
             return institute.studentsByCourse[_courseName];
-        }  
+        } 
+
+    // function getAllCertificatesInCourse(address _instituteAddress, string memory _courseName) public view returns (string[] memory) {
+    //         Institute storage institute = institutes[_instituteAddress];
+    //         require(institute.instituteAddress != address(0), "Institute does not exist");
+    //         return institute.allCertificateInCourse[_courseName];
+    //     }     
 
     function getCourses(address _instituteAddress) public view returns(string[] memory) {
             Institute storage institute = institutes[_instituteAddress];

@@ -8,7 +8,6 @@ import Signup from "./components/Home/Signup";
 import InstDashboard from "./components/Institute/InstDashboard";
 import StudDashboard from "./components/Student/StudDashboard";
 import Verification from "./components/Verification/Verification";
-import "./App.css";
 import GovProfile from "./components/Goverment/GovProfile";
 import InsttituteApplications from "./components/Goverment/InstituteApplications";
 import RegisteredInstitute from "./components/Goverment/RegisteredInstitute";
@@ -19,10 +18,12 @@ import StudentProfile from "./components/Student/StudentProfile";
 import Application from "./components/Student/Application";
 import MyCertificates from "./components/Student/MyCertificates";
 import CertificateApplication from "./components/Institute/CertificateApplication";
-import GovernmentSignupForm from "./components/Home/GovSignup";
 import GovSignup from "./components/Home/GovSignup";
 import InstSignup from "./components/Home/InstSignup";
 import StudSignup from "./components/Home/StudSignup";
+import EnrolledStudents from "./components/Institute/EnrolledStudents";
+import "./App.css";
+
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -43,7 +44,8 @@ function App() {
         <Route path="/verification" element={<Verification/>}/>   
         <Route path="/dashboard/goverment/goverment-profile" element={<GovProfile/>}/>   
         <Route path="/dashboard/goverment/institute-applications" element={<InsttituteApplications/>}/>   
-        <Route path="/dashboard/goverment/registered-institutes" element={<RegisteredInstitute/>}/>  
+        <Route path="/dashboard/goverment/registered-institutes" element={<RegisteredInstitute/>}/> 
+        <Route path="/dashboard/institute/enrolled-students" element={<EnrolledStudents/>}/>
         <Route path="/dashboard/institute/institute-profile" element={<InstituteProfile/>}/>   
         <Route path="/dashboard/institute/add-courses" element={<AddCourses/>}/>   
         <Route path="/dashboard/institute/certificate-application" element={<CertificateApplication/>}/>   
