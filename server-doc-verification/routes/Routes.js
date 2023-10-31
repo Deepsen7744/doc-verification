@@ -24,7 +24,8 @@ const {
     signupStudent,
     updateDisplayPictureStudent,
     CertificateApplication,
-    GetAllCertificates
+    GetAllCertificates,
+    getStudentInfo
 } = require("../controllers/Student");
 
 const { 
@@ -56,5 +57,6 @@ router.post("/student-signup",signupStudent)
 router.put("/updateDisplayPicture-student",isStudent,updateDisplayPictureStudent)
 router.post("/certificate-application",isStudent,CertificateApplication)
 router.get("/get-all-certificate",isStudent,GetAllCertificates)
+router.get("/get-student-data",isStudent,getStudentInfo)
 
 module.exports = router

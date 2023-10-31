@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getNonApprovedApplications } from '../../services/operations/InstituteOperations';
+import { getStudentData, approveCertificate } from '../../services/operations/StudentOperations';
 
 function CertificateApplication() {
-  const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
+  const { 
+    account, 
+    result, 
+    dashboardLoading, 
+    setDashboardLoading,
+    createCertificate } = useContext(AppContext);
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
@@ -24,6 +30,31 @@ function CertificateApplication() {
     fetchData();
   }, [result.id]);
 
+  const handleApprove = async (data) => {
+    try {
+      const result = await getStudentData(data.StudentId);
+
+      const certificateData = {
+        instituteName: data.instituteName,
+        StartDate: data.StartDate,
+        EndDate: data.EndDate,
+        AppliedAt: data.AppliedAt,
+        StudentName: data.StudentName,
+        courseName: data.courseName,
+        studentAccount: result.data.AccountNumber,
+        instituteAccount: account
+      }
+
+      console.log(certificateData);
+      await createCertificate(result.data.AccountNumber, account, data.courseName, certificateData);
+      await approveCertificate(data.InstituteId, data._id);
+      fetchData();
+    } catch (error) {
+      console.error('Error approving institute:', error);
+      setDashboardLoading(false);
+    }
+  };
+
 
   return (
     <div>
@@ -35,6 +66,7 @@ function CertificateApplication() {
           <div>
             {data.map((item) => (
               <div key={item._id}>
+                <p>Application id: {item._id}</p>
                 <p>AppliedAt: {item.AppliedAt}</p>
                 <p>EndDate: {item.EndDate}</p>
                 <p>InstituteId: {item.InstituteId}</p>
@@ -44,6 +76,9 @@ function CertificateApplication() {
                 <p>StudentName: {item.StudentName}</p>
                 <p>courseName: {item.courseName}</p>
                 <p>status: {item.status}</p>
+                {item.status === 'NotApproved' && (
+                  <button onClick={() => handleApprove(item)}>Approve</button>
+                )}
               </div>
             ))
           }

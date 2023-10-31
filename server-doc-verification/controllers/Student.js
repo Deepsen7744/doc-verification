@@ -195,3 +195,20 @@ exports.GetAllCertificates = async (req, res)=> {
       });
 }
 };
+
+exports.getStudentInfo = async (req, res) => {
+  try{
+    const id = req.query.id;
+    const student = await Student.findById(id);
+    res.send({
+      success: true,
+      message: `Got student data`,
+      data: student,
+    })
+  } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Could not get student data. Please try again.",
+      });
+  }
+}

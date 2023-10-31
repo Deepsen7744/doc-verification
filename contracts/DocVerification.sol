@@ -54,8 +54,7 @@ contract DocVerification {
         newInstitute.instituteData = _instituteData;
         newInstitute.course = new string[](0);
         newInstitute.enrolledStudents = new address[](0);
-        // newInstitute.isApprovedByInstitute = true;
-        newInstitute.isApprovedByInstitute = false;
+        newInstitute.isApprovedByInstitute = true;
         newInstitute.isApprovedByGovernment = false;
     }
 
@@ -163,11 +162,11 @@ contract DocVerification {
             return institute.studentsByCourse[_courseName];
         } 
 
-    // function getAllCertificatesInCourse(address _instituteAddress, string memory _courseName) public view returns (string[] memory) {
-    //         Institute storage institute = institutes[_instituteAddress];
-    //         require(institute.instituteAddress != address(0), "Institute does not exist");
-    //         return institute.allCertificateInCourse[_courseName];
-    //     }     
+    function getAllCertificatesInCourse(address _instituteAddress, string memory _courseName) public view returns (string[] memory) {
+            Institute storage institute = institutes[_instituteAddress];
+            require(institute.instituteAddress != address(0), "Institute does not exist");
+            return institute.allCertificateInCourse[_courseName];
+        }     
 
     function getCourses(address _instituteAddress) public view returns(string[] memory) {
             Institute storage institute = institutes[_instituteAddress];

@@ -6,7 +6,8 @@ const {
     POST_CREATE_STUDENT_API,
     PUT_DISPLAY_PICTURE_STUDENT_API,
     POST_CERTIFICATE_APPLICATION_API,
-    GET_CERTIFICATES_API
+    GET_CERTIFICATES_API,
+    GET_STUDENT_DATA
 } = studentEndpoints;
 
 export const createStudent = async (values) => {
@@ -83,3 +84,22 @@ export const getCerificates = async (id) => {
     toast.dismiss(toastId);
     return result;
 };
+
+export const getStudentData = async (id) => {
+    const toastId = toast.loading("Loading...");
+    const url =`${GET_STUDENT_DATA}?id=${id}`
+    let result = [];
+    try {
+        const response = await apiConnector("GET", url);
+        console.log("Cerificates .....", response);
+        if (!response?.data?.success) {
+            throw new Error(response.data.message)
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Cannot get student data error ......", error);
+        result = error.response.data;
+    }
+    toast.dismiss(toastId);
+    return result;
+}
