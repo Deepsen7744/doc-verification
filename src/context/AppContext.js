@@ -18,7 +18,7 @@ export default function AppContextProvider ({children}) {
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     const [provider, setProvider] = useState(null);
-    const [contractAddress, setContractAddress] = useState("0xea0921532E8c1752d55B516B25E52f87103b045A");
+    const [contractAddress, setContractAddress] = useState("0x98858Ab398F25Ca9BF1B709F516FF09865951AD5");
 
     async function getCertificateOwners(_transactionHash){
       try{

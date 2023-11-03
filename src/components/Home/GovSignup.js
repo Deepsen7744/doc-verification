@@ -40,7 +40,7 @@ function GovSignup() {
     console.log(data);
     const response = await createGoverment(data);
     console.log(response);
-    window.location.href = '/'; 
+    // window.location.href = '/'; 
   };
 
   return (

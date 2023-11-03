@@ -13,6 +13,7 @@ function Application() {
   const onSubmit = async (data) => {
     try{
       console.log(data);
+      console.log(result.id);
       const res = await cerificateApplication(result.id,data);
       console.log(res);
     } catch(error){
@@ -27,6 +28,7 @@ function Application() {
       console.log(response);
       setData(response.data);
       setDashboardLoading(false);
+      console.log(result.id);
     } catch (error) {
       console.error('Error fetching data:', error);
       setDashboardLoading(false);
@@ -48,7 +50,7 @@ function Application() {
 
       <div>
         <label>Institute Name:</label>
-        <select className='w-32' {...register("InstituteId", { required: 'Institute ID is required' })}>
+        <select className='w-32' {...register("instituteName", { required: 'Institute ID is required' })}>
           {dashboardLoading ? (
             <option value="">Loading Institutes...</option>
           ) : (
@@ -59,7 +61,7 @@ function Application() {
             ))
           )}
         </select>
-        {errors.InstituteId && <span>{errors.InstituteId.message}</span>}
+        {errors.instituteName && <span>{errors.instituteName.message}</span>}
       </div>
 
       <div>

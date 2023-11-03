@@ -13,4 +13,3 @@ function Navbar() {
 
 export default Navbar
 
-// yaha ek acchi si navbar bana jisme ek logo ho aur login , signup, verification wale 3 buttons ho

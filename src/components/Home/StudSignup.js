@@ -54,8 +54,8 @@ function StudSignup() {
        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
        const _studentAddress = data.AccountNumber;
        const _studentData = encryptedData;
-       await registerStudent(_studentAddress,_studentData);
-       window.location.href = '/'; 
+      //  await registerStudent(_studentAddress,_studentData);
+      //  window.location.href = '/'; 
       } catch(error){
        console.log(error);
       }
@@ -78,9 +78,9 @@ function StudSignup() {
         <label>Phone Number:</label>
         <input
           type="tel"
-          {...register('phoneNumber', { required: 'Phone Number is required', pattern: { value: /^\d{10}$/, message: 'Please enter a valid phone number (10 digits)' } })}
+          {...register('tel', { required: 'Phone Number is required', pattern: { value: /^\d{10}$/, message: 'Please enter a valid phone number (10 digits)' } })}
         />
-        {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+        {errors.tel && <p>{errors.tel.message}</p>}
       </div>
 
       <div>
@@ -96,9 +96,9 @@ function StudSignup() {
         <label>Date of Birth:</label>
         <input
           type="date"
-          {...register('dateOfBirth', { required: 'Date of Birth is required' })}
+          {...register('date', { required: 'Date of Birth is required' })}
         />
-        {errors.dateOfBirth && <p>{errors.dateOfBirth.message}</p>}
+        {errors.date && <p>{errors.date.message}</p>}
       </div>
 
       <button type="submit">Submit</button>

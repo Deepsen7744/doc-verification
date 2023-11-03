@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getNonApprovedApplications } from '../../services/operations/InstituteOperations';
-import { getStudentData, approveCertificate } from '../../services/operations/StudentOperations';
+import { getStudentData } from '../../services/operations/StudentOperations';
+import { approveCertificate } from '../../services/operations/InstituteOperations';
+import CryptoJS from 'crypto-js';
 
 function CertificateApplication() {
   const { 
@@ -46,7 +48,9 @@ function CertificateApplication() {
       }
 
       console.log(certificateData);
-      await createCertificate(result.data.AccountNumber, account, data.courseName, certificateData);
+      const secretKey = 'secret'; 
+      const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(certificateData), secretKey).toString();
+      await createCertificate(result.data.AccountNumber, account, data.courseName, encryptedData);
       await approveCertificate(data.InstituteId, data._id);
       fetchData();
     } catch (error) {
