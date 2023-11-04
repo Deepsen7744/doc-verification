@@ -28,7 +28,7 @@ function InsttituteApplications() {
       console.log(id,AccountNumber);
       setDashboardLoading(true);
       await approveInst(result.id, id);
-      await approveInstitute(AccountNumber);
+      // await approveInstitute(AccountNumber);
       fetchData(); // Fetch data again after approval
     } catch (error) {
       console.error('Error approving institute:', error);

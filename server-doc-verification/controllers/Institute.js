@@ -1,4 +1,5 @@
 const Institute = require("../models/Institute");
+const Student = require("../models/Student");
 const Application = require("../models/Application");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
@@ -139,6 +140,24 @@ exports.approveCertificate = async (req, res)=> {
       if (application) {
         application.status = "Approved";
         await application.save();
+
+        ////////////////////
+
+        const student = await Student.findById(application.StudentId);
+
+        try {
+          const mailResponse = await mailSender(
+            student.email,
+            "Approval Email",
+            emailTemplate(student.name)
+          );
+          console.log("Email sent successfully: ", mailResponse.response);
+        } catch (error) {
+          console.log("Error occurred while sending email: ", error);
+          throw error;
+        }
+
+
         res.send({
           success: true,
           message: 'done',

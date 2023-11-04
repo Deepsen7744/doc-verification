@@ -49,12 +49,12 @@ function InstSignup() {
     console.log(data);
     const response1 = await createInstitute(data);
     console.log(response1);
-    const secretKey = 'secret'; 
-    const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
-    const _instituteAddress = data.AccountNumber;
-    const _instituteData = encryptedData;
-    await registerInstitute(_instituteAddress,_instituteData);
-    window.location.href = '/'; 
+    // const secretKey = 'secret'; 
+    // const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+    // const _instituteAddress = data.AccountNumber;
+    // const _instituteData = encryptedData;
+    // await registerInstitute(_instituteAddress,_instituteData);
+    // window.location.href = '/'; 
    } catch(error){
     console.log(error);
    }

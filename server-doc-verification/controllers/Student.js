@@ -2,6 +2,8 @@ const Student=require("../models/Student");
 const Application=require("../models/Application");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const Institute = require("../models/Institute");
+const mailSender = require("../utils/mailSender");
+const emailTemplate = require("../Templates/ApplicationTemplate");
 
 exports.signupStudent = async (req, res) => {
     try {
@@ -92,7 +94,6 @@ exports.CertificateApplication = async(req, res)=> {
     const StudentId=req.query.id;
 
     const {
-      instituteName,
       StudentName,
       InstituteId,
       courseName,
@@ -101,7 +102,6 @@ exports.CertificateApplication = async(req, res)=> {
     } = req.body;
 
     if(
-      !instituteName||
       !StudentId ||
       !StudentName ||
       !InstituteId ||
@@ -129,8 +129,10 @@ exports.CertificateApplication = async(req, res)=> {
 			});
 		}
 
+  const tempinstitute = await Institute.findById(InstituteId);  
+
   const application = await Application.create({
-    instituteName,
+    instituteName: tempinstitute.instituteName,
     StudentId,
     StudentName,
     InstituteId,
@@ -160,7 +162,24 @@ exports.CertificateApplication = async(req, res)=> {
         success: false,
         message: 'Institute not found',
       });
-    }  
+    } 
+    ////////////////////////////
+    try {
+      console.log(student.email);
+      const mailResponse = await mailSender(
+        student.email,
+        "Approval Email",
+        emailTemplate(tempinstitute.instituteName,
+          StudentName,
+          courseName,
+          StartDate,
+          EndDate)
+      );
+      console.log("Email sent successfully: ", mailResponse.response);
+    } catch (error) {
+      console.log("Error occurred while sending email: ", error);
+      throw error;
+    }
   
   return res.status(200).json({
     success: true,

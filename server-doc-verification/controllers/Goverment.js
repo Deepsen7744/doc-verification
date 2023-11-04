@@ -1,5 +1,7 @@
 const Institute=require("../models/Institute");
 const Goverment=require("../models/Goverment");
+const mailSender = require("../utils/mailSender");
+const emailTemplate = require("../Templates/ApprovalTemplate");
 
 exports.createGov = async (req,res) => {
   try {
@@ -92,6 +94,20 @@ exports.approveInstitute = async (req, res) => {
         if (institute) {
             institute.Approved = "Approved";
             await institute.save();
+
+            // send mail 
+            try {
+              const mailResponse = await mailSender(
+                institute.email,
+                "Approval Email",
+                emailTemplate(institute.instituteName)
+              );
+              console.log("Email sent successfully: ", mailResponse.response);
+            } catch (error) {
+              console.log("Error occurred while sending email: ", error);
+              throw error;
+            }
+
             res.send({
               success: true,
               message: 'Approved the institute',

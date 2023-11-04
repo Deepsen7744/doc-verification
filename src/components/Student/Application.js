@@ -12,6 +12,7 @@ function Application() {
 
   const onSubmit = async (data) => {
     try{
+      data.InstituteId = data.instituteName;
       console.log(data);
       console.log(result.id);
       const res = await cerificateApplication(result.id,data);
@@ -61,7 +62,7 @@ function Application() {
             ))
           )}
         </select>
-        {errors.instituteName && <span>{errors.instituteName.message}</span>}
+        {errors._id && <span>{errors._id.message}</span>}
       </div>
 
       <div>

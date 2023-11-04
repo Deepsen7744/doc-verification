@@ -1,4 +1,6 @@
 const mongoose=require("mongoose");
+const emailTemplate = require("../Templates/InstituteConfirmation");
+const mailSender = require("../utils/mailSender");
 
 const InstituteSchema = new mongoose.Schema({
     
@@ -40,5 +42,29 @@ const InstituteSchema = new mongoose.Schema({
 		},
     ],
 });
+
+async function sendConfirmationEmail(email, instituteName, AccountNumber) {
+	try {
+		const mailResponse = await mailSender(
+			email,
+			"Confirmation Email",
+			emailTemplate(instituteName, AccountNumber)
+		);
+		console.log("Email sent successfully: ", mailResponse.response);
+	} catch (error) {
+		console.log("Error occurred while sending email: ", error);
+		throw error;
+	}
+}
+
+InstituteSchema.pre("save", async function (next) {
+	console.log("New document saved to database");
+
+	if (this.isNew) {
+		await sendConfirmationEmail(this.email, this.instituteName, this.AccountNumber);
+	}
+	next();
+});
+
 
 module.exports = mongoose.model("institute", InstituteSchema);
