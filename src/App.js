@@ -23,6 +23,8 @@ import InstSignup from "./components/Home/InstSignup";
 import StudSignup from "./components/Home/StudSignup";
 import EnrolledStudents from "./components/Institute/EnrolledStudents";
 import "./App.css";
+import { ThemeProvider } from "./themeProvider";
+
 
 const dotenv = require("dotenv");
 
@@ -31,6 +33,7 @@ dotenv.config();
 function App() {
 
   return (
+    <ThemeProvider>
     <div>
     <Navbar/>
     <Routes>
@@ -58,6 +61,7 @@ function App() {
         <Route path="/signup/student" element={<StudSignup/>}/>
     </Routes>
     </div>
+    </ThemeProvider>
   );
 }
 

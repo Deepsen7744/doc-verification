@@ -14,6 +14,7 @@ export default function AppContextProvider ({children}) {
       email: "",
       id: ""
     });
+    
 
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
