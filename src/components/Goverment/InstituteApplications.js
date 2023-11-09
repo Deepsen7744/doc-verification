@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getNonRegisteredInst, approveInst } from "../../services/operations/GovermentOperations";
+import Slidebar from './Slidebar';
 
 function InsttituteApplications() {
   const { result,dashboardLoading, setDashboardLoading, approveInstitute } = useContext(AppContext);
@@ -37,8 +38,13 @@ function InsttituteApplications() {
   };
 
   return (
+
+    <div  className='    pt-16   flex flex-col'>
+  <Slidebar /> 
+    <div className='     pl-80 pt-7'>
     <div>
       <h2>Institute Applications for approval</h2>
+      
       <div>
         {dashboardLoading ? (
           <div>loading..</div>
@@ -61,6 +67,9 @@ function InsttituteApplications() {
         }
       </div>
     </div>
+    </div>
+  </div>
+    
   );
 }
 

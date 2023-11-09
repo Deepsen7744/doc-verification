@@ -3,7 +3,7 @@
 
 // function Navbar() {
 //   return(
-//   <div className=' flex flex-row items-center gap-10'>
+//   <div className=' flex flex-row items-center gap-10  bg-red-700'>
 //   <div>Navbar</div>
 //   <Link to={"/login"}><button>Login</button></Link>
 //   <Link to={"/signup"}><button>Signup</button></Link>
@@ -19,7 +19,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import Hamburger from "hamburger-react";
 import logo from "../../assets/Images/ChainVault-removebg-preview.png"
 import { AppContext } from "../../context/AppContext";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+
+  Button,
+  useDisclosure,
+  
+} from '@chakra-ui/react'
+
+
+
 const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const theme = useContext(ThemeContext);
   const [toggle, setToggle] = useState(false);
   const darkMode = theme.state.darkMode;
@@ -63,11 +77,11 @@ const Navbar = () => {
       <nav
         className={
           darkMode
-            ? "bg-white border-gray-200 z-50 shadow-lg md:px-8 px-1 fixed w-full top-0"
-            : "bg-gray-700 border-gray-200 z-50 shadow-lg md:px-8 px-1 fixed w-full top-0"
+            ? "bg-white border-gray-200 shadow-lg md:px-8 px-1 z-50  w-full  fixed    top-0 left-0"
+            : "bg-gray-700 border-gray-200  shadow-lg md:px-8 px-1 z-50 fixed top-0 left-0 w-full "
         }
       >
-        <div className="flex justify-between items-center py-2 md:py-4 md:px-2 pl-2 mx-auto">
+        <div className="flex justify-between items-center py-2 md:py-4 md:px-2 pl-2 mx-auto   mr-8">
           <div className="flex items-center cursor-pointer">
             <a
               href="/"
@@ -131,8 +145,17 @@ const Navbar = () => {
                      >
                        login
                      </Link>
-                     <Link
-                       to="/signup"
+                   
+                      <Menu >
+                    <MenuButton
+                      className="bottom-[4x] text-white bg-blue-500 "
+                      as={Button}
+                      background={"blue.500"}
+                     
+                     
+                      color={"black"}
+                    >
+                      <Link  to="/signup"
                        activeClass={"text-white bg-blue-500"}
                        spy={true}
                        smooth={true}
@@ -140,10 +163,36 @@ const Navbar = () => {
                          darkMode
                            ? "block py-2 px-3 text-black hover:bg-blue-500 hover:text-white rounded-md"
                            : "block py-2 px-3 text-white hover:bg-blue-500 hover:text-black rounded-md"
-                       }
-                     >
-                       Sign up
-                     </Link>
+                       }>
+                        <button onClick={onOpen}>Signup</button>
+                      </Link>
+                    </MenuButton>
+                    <MenuList background={'white'}>
+                      <MenuItem
+                        className="text-black hover:bg-blue-500"
+                        background={'white'}
+                      >
+                        {' '}
+                        <Link to={'/signup/goverment'}>Goverment</Link>
+                      </MenuItem>
+                      <MenuItem
+                        className="text-black hover:bg-blue-500"
+                        background={'white'}
+                      >
+                        <Link to={'/signup/institute'}>Institute</Link>
+                      </MenuItem>
+                      <MenuItem
+                        className="text-black hover:bg-blue-500"
+                        background={'white'}
+                      >
+                        <Link to={'/Studentsignup'}>Student</Link>
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+
+
+
+                     
                       </li>
                       
                       </div>)

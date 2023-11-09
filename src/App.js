@@ -26,22 +26,30 @@ import "./App.css";
 import { ThemeProvider } from "./themeProvider";
 
 
+
+
 const dotenv = require("dotenv");
 
 dotenv.config();
 
 function App() {
+  
 
   return (
-    <ThemeProvider>
+  
     <div>
+        <ThemeProvider>
     <Navbar/>
-    <Routes>
+  
+    <Routes  >
         <Route path="/" element={<HomePage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
+        
         <Route path="/dashboard/goverment" element={<GovDashboard/>}/>
+     
+        
         <Route path="/dashboard/institute" element={<InstDashboard/>}/>
         <Route path="/dashboard/student" element={<StudDashboard/>}/>
         <Route path="/verification" element={<Verification/>}/>   
@@ -59,9 +67,18 @@ function App() {
         <Route path="/signup/goverment" element={<GovSignup/>}/>
         <Route path="/signup/institute" element={<InstSignup/>}/>
         <Route path="/signup/student" element={<StudSignup/>}/>
+        <Route path="/" element={<Dashboard />} />
+   
+      
+          
+         
+       
     </Routes>
-    </div>
+   
+   
     </ThemeProvider>
+    </div>
+   
   );
 }
 

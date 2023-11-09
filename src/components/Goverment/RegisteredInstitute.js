@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { getRegisteredInst } from "../../services/operations/GovermentOperations";
+import Slidebar from './Slidebar';
 
 function RegisteredInstitute() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
@@ -26,7 +27,10 @@ function RegisteredInstitute() {
   }, [result.id]);
 
   return (
-    <div>
+    <div  className='    pt-16   flex flex-col'>
+    <Slidebar /> 
+      <div className='      pl-80 pt-7'>
+      <div>
       <h2>Registered Institute</h2>
       <div>
         {dashboardLoading ? (
@@ -48,6 +52,9 @@ function RegisteredInstitute() {
         }
       </div>
     </div>
+      </div>
+    </div>
+    
   );
 }
 
