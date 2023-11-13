@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react'
+import SidebarInstitute from './SidebarInstitude'
 
 function EnrolledStudents() {
   return (
-    <div>Enrolled Students</div>
-  );
+    <div className="    pt-16   flex flex-col">
+      <SidebarInstitute />
+      <div className="      pl-80 pt-7">
+        <div>Enrolled Students</div>
+      </div>
+    </div>
+  )
 }
 
-export default EnrolledStudents;
+export default EnrolledStudents

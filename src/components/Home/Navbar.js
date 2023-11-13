@@ -19,6 +19,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Hamburger from "hamburger-react";
 import logo from "../../assets/Images/ChainVault-removebg-preview.png"
 import { AppContext } from "../../context/AppContext";
+import GovDashboard from "../Goverment/GovDashboard";
+import Topicon from "../Goverment/components/Topicon";
+
+
+
 import {
   Menu,
   MenuButton,
@@ -38,7 +43,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const darkMode = theme.state.darkMode;
   const {result}=useContext(AppContext);
-  const deep="";
+  const deep="land";
   
   const links = [
     {
@@ -130,7 +135,8 @@ const Navbar = () => {
                   </Link>
                   
                   {
-                    deep ? (<div>deep</div>) :( <div>
+                    
+                    result.username ? (<div><Topicon/>  </div>) :( <div>
                       <li className="cursor-pointer  flex flex-row gap-7">
                       <Link
                        to="/login"
@@ -185,7 +191,7 @@ const Navbar = () => {
                         className="text-black hover:bg-blue-500"
                         background={'white'}
                       >
-                        <Link to={'/Studentsignup'}>Student</Link>
+                        <Link to={'/signup/student'}>Student</Link>
                       </MenuItem>
                     </MenuList>
                   </Menu>

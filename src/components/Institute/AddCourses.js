@@ -15,6 +15,7 @@ function AddCourses() {
   }
 
   return (
+    
     <div>
       <div>
         <h2>Your Courses: </h2>

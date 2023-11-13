@@ -1,39 +1,15 @@
-import { BsKey } from 'react-icons/bs'
-import { AiOutlineFileSearch } from 'react-icons/ai'
-import { TbWorldSearch } from 'react-icons/tb'
-import { MdOutlinePrivacyTip } from 'react-icons/md'
-import { TiFolderOpen } from 'react-icons/ti'
-import { AppContext } from '../../context/AppContext'
+import user from '../../../assets/Images/user.png'
 
-import user from '../../assets/Images/user.png'
-
-import logout from '../../assets/Images/sent.svg'
-import '../Goverment/gov.css'
-
-import SidebarInstitute from './SidebarInstitude'
-
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Button,
-  useDisclosure,
-  VStack,
-  HStack,
-  Image,
-  Box,
-  Flex,
-} from '@chakra-ui/react'
+import logout from '../../../assets/Images/log-out.png'
+import '../gov.css'
+import Slidebar from '../Slidebar.js'
+import { useDisclosure, Box } from '@chakra-ui/react'
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { BiMenuAltLeft } from 'react-icons/bi'
+import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../../../context/AppContext.js'
 
-const InstDashboard = () => {
-  const { result } = useContext(AppContext)
-  console.log(result)
+const Topicon = () => {
+  const { result, setResult } = useContext(AppContext)
 
   const [open, setOpen] = useState(false)
   let menuRef = useRef()
@@ -49,20 +25,22 @@ const InstDashboard = () => {
       document.removeEventListener('mousedown', handler)
     }
   })
+  const navigate = useNavigate()
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  function bahar() {
+    setResult({
+      isLoading: true,
+      isAuthorized: false,
+      username: '',
+      email: '',
+      id: '',
+    })
+    navigate('/')
+  }
+
   return (
     <>
       <Box>
-        <div className="    pt-16   flex flex-col">
-          <SidebarInstitute />
-          <div className="      pl-80 pt-7">
-            <div>
-              oekfpksappslapcflspdcpkskdlcldsllclcdsjfkdskjvdmvlmdlmvkfdomvmdfkvdf{' '}
-            </div>
-          </div>
-        </div>
-
         <div className="menu-container" ref={menuRef}>
           <div
             className="menu-trigger w-9 "
@@ -87,7 +65,10 @@ const InstDashboard = () => {
             <ul>
               <DropdownItem img={user} text={'Dashboard'} />
 
-              <DropdownItem img={logout} text={'Logout'} />
+              <button onClick={bahar}>
+                {' '}
+                <DropdownItem img={logout} text={'Logout'} />
+              </button>
             </ul>
           </div>
         </div>
@@ -105,4 +86,4 @@ function DropdownItem(props) {
   )
 }
 
-export default InstDashboard
+export default Topicon

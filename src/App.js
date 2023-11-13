@@ -26,19 +26,20 @@ import "./App.css";
 import { ThemeProvider } from "./themeProvider";
 
 
-
-
 const dotenv = require("dotenv");
 
 dotenv.config();
 
 function App() {
+ 
   
 
   return (
   
     <div>
+
         <ThemeProvider>
+
     <Navbar/>
   
     <Routes  >
