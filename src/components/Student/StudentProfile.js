@@ -1,6 +1,8 @@
 import React from 'react'
 import SidebarStudent from './SidebarStudent'
 
+// bc se nikal ke dhikhao
+
 function StudentProfile() {
   return (
     <div className="    pt-16   flex flex-col">

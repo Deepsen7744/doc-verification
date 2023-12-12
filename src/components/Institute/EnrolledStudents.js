@@ -1,7 +1,10 @@
 import React from 'react'
 import SidebarInstitute from './SidebarInstitude'
 
+// bc se nikal ke dhikhao
+
 function EnrolledStudents() {
+
   return (
     <div className="    pt-16   flex flex-col">
       <SidebarInstitute />

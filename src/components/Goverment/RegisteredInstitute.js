@@ -6,8 +6,6 @@ import Slidebar from './Slidebar';
 function RegisteredInstitute() {
   const { result,dashboardLoading, setDashboardLoading } = useContext(AppContext);
   const [data, setData] = useState([]);
-  
-  // info blockchain se nikall ke dhikhana
 
   const fetchData = async () => {
     try {

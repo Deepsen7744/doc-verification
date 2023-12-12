@@ -72,7 +72,7 @@ const InstDashboard = () => {
           >
             <img
               className="bg-cover"
-              src="https://cdn.iconscout.com/icon/free/png-512/free-user-avatar-contact-portfolio-personal-portrait-profile-5093.png?f=webp&w=256"
+              src={`https://api.dicebear.com/5.x/initials/svg?seed=${result.email}`}
             ></img>
           </div>
 

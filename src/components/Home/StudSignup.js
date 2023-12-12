@@ -18,9 +18,9 @@ const { ethers } = require('ethers')
 
 function StudSignup() {
   const navigate = useNavigate()
-  function handleclick() {
-    navigate('/dashboard/student')
-  }
+  // function handleclick() {
+  //   navigate('/dashboard/student')
+  // }
 
   const {
     handleSubmit,
@@ -71,8 +71,8 @@ function StudSignup() {
       ).toString()
       const _studentAddress = data.AccountNumber
       const _studentData = encryptedData
-      //  await registerStudent(_studentAddress,_studentData);
-      //  window.location.href = '/';
+       await registerStudent(_studentAddress,_studentData);
+       window.location.href = '/';
     } catch (error) {
       console.log(error)
     }
@@ -96,6 +96,31 @@ function StudSignup() {
             Sign Up
           </h2>
           <div className="  flex  items-end       h-[2px]    w-full    bg-red-500"></div>
+        </div>
+
+        <div class="flex flex-col   max-sm:w-60 sm:w-64 md:w-72 lg:w-80 max-sm:mb-2 sm:mb-2 md:mb-3 lg:mb">
+          <label class="flex items-center border-b border-gray-400 py-2">
+            <svg
+              class="w-6 h-6 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <BiSolidInstitution />
+            </svg>
+            {/* <img className='  w-4  mr-4' src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/768px-MetaMask_Fox.svg.png' alt='sf'></img> */}
+
+            <input
+              placeholder="Student Name"
+              class="w-full focus:outline-none"
+              type="text"
+              {...register('name', {
+                required: 'Student Name is required',
+              })}
+            />
+          </label>
+          {errors.name && <p>{errors.name.message}</p>}
         </div>
 
         <div class="flex flex-col   max-sm:w-60 sm:w-64 md:w-72 lg:w-80 max-sm:mb-2 sm:mb-2 md:mb-3 lg:mb">
@@ -174,7 +199,7 @@ function StudSignup() {
         </div>
 
         <AwesomeButton
-          onPress={handleclick}
+          // onPress={onSubmit}
           className=" mb-6  w-28   h-12"
           type="primary"
         >

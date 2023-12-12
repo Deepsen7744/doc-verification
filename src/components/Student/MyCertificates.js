@@ -3,7 +3,7 @@ import { AppContext } from '../../context/AppContext'
 import { getCerificates } from '../../services/operations/StudentOperations'
 import SidebarStudent from './SidebarStudent'
 
-// bc se nikal ke dhikha
+// bc se nikal ke approved certificate dikhao dhikha
 
 function MyCertificates() {
   const { result, dashboardLoading, setDashboardLoading } =
@@ -40,6 +40,7 @@ function MyCertificates() {
               <div>
                 {data.map((item) => (
                   <div key={item._id}>
+                   { item.status == "NotApproved" ? (<div>
                     <p>AppliedAt: {item.AppliedAt}</p>
                     <p>StartDate: {item.StartDate}</p>
                     <p>EndDate: {item.EndDate}</p>
@@ -47,6 +48,8 @@ function MyCertificates() {
                     <p>Name on certificate: {item.StudentName}</p>
                     <p>Course: {item.courseName}</p>
                     <p>Status: {item.status}</p>
+                   </div>) : (null)
+                    }
                   </div>
                 ))}
               </div>
