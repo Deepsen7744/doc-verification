@@ -14,6 +14,7 @@ import PCertificate2 from "../../assets/3.png";
 import PCertificate3 from "../../assets/4.png";
 import PCertificate4 from "../../assets/5.png";
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 const CertificateSlider = ()=> {
 
@@ -263,12 +264,23 @@ const CertificateSlider = ()=> {
           const ipfsHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
           console.log(ipfsHash);
           if(ipfsHash){
+
+          console.log("application")
+          console.log(certificateData.studentAccount)
+          console.log(certificateData.instituteAccount)
+          console.log(certificateData.courseName)
+          console.log(encryptedData)
+          console.log(ipfsHash)
+          console.log("end")
+          
+
           await createCertificate(
             certificateData.studentAccount,
             certificateData.instituteAccount,
             certificateData.courseName,
             encryptedData,
             ipfsHash);
+
           alert("Successfully Certificate Uploaded");
           } else {
             alert("Some problem occured");

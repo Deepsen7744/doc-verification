@@ -187,37 +187,7 @@ contract DocVerification {
         return false;
         }        
 
-    function enrollStudentInCourse(address _studentAddress, address _instituteAddress, string memory _courseName) public {
-        Institute storage institute = institutes[_instituteAddress];
-        require(institute.isApprovedByInstitute && institute.isApprovedByGovernment, "Institute itself is not approved");
-
-        Student storage student = students[_studentAddress];
-        require(student.studentAddress != address(0), "Student does not exist");
-
-        // Check if the course exists in the institute
-        bool courseExists = false;
-        for (uint256 i = 0; i < institute.course.length; i++) {
-            if (keccak256(bytes(institute.course[i])) == keccak256(bytes(_courseName))) {
-                courseExists = true;
-                break;
-            }
-        }
-        require(courseExists, "Course does not exist in the institute");
-
-        bool isEnrolled = false;
-        for (uint256 i = 0; i < institute.studentsByCourse[_courseName].length; i++) {
-            if (institute.studentsByCourse[_courseName][i] == _studentAddress) {
-                isEnrolled = true;
-                break;
-            }
-        }
-        require(!isEnrolled, "Student is alreaady enrolled in the course");
-        
-        institute.studentsByCourse[_courseName].push(_studentAddress);
-        institute.enrolledStudents.push(_studentAddress);
-    }
-
-    function createCertificate(address _studentAddress,address _instituteAddress,string memory _courseName,string memory _transactionHash) public {
+    function createCertificate(address _studentAddress,address _instituteAddress,string memory _courseName,string memory _transactionHash, string memory _ipfsHash) public {
         require(bytes(certificates[_transactionHash].transactionHash).length == 0, "Certificate with the same transaction hash already exists");
         Institute storage institute = institutes[_instituteAddress];
         require(institute.isApprovedByInstitute && institute.isApprovedByGovernment, "Institute is not approved");
@@ -235,51 +205,16 @@ contract DocVerification {
         }
         require(courseExists, "Course does not exist in the institute");
 
-        // Check if the student is enrolled in the course
-        bool isEnrolled = false;
-        for (uint256 i = 0; i < institute.studentsByCourse[_courseName].length; i++) {
-            if (institute.studentsByCourse[_courseName][i] == _studentAddress) {
-                isEnrolled = true;
-                break;
-            }
-        }
-        require(isEnrolled, "Student is not enrolled in the course");
+        institute.studentsByCourse[_courseName].push(_studentAddress);
+
+        institute.enrolledStudents.push(_studentAddress);
         
         certificates[_transactionHash] = Certificate(_studentAddress,_instituteAddress,_transactionHash);
 
         institute.allCertificateInCourse[_courseName].push(_transactionHash);
 
         student.transactionHash.push(_transactionHash);
-    }
 
-    function uploadCertificate(
-        address _studentAddress,
-        address _instituteAddress,
-        string memory _transactionHash,
-        string memory _courseName,
-        string memory _ipfsHash
-    ) public {
-        Institute storage institute = institutes[_instituteAddress];
-        require(institute.instituteAddress != address(0), "Institute does not exist");
-        require(institute.isApprovedByInstitute && institute.isApprovedByGovernment, "Institute is not approved");
-
-        Student storage student = students[_studentAddress];
-        require(student.studentAddress != address(0), "Student does not exist");
-        require(msg.sender == _studentAddress, "Only student can upload his/her certificate to the ipfs");
-        
-        // Check if the student is enrolled in the course
-        bool isEnrolled = false;
-        for (uint256 i = 0; i < institute.studentsByCourse[_courseName].length; i++) {
-            if (institute.studentsByCourse[_courseName][i] == _studentAddress) {
-                isEnrolled = true;
-                break;
-            }
-        }
-        require(isEnrolled, "Student is not enrolled in the course");
-
-        require(bytes(certificates[_transactionHash].transactionHash).length != 0, "This certficate is not created by any institute");
-        
-        // Map the transaction to the IPFS hash
         student.ipfsHash[_transactionHash] = _ipfsHash;
     }
 }

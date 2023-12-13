@@ -65,10 +65,12 @@ function StudSignup() {
       const response1 = await createStudent(data)
       console.log(response1)
       const secretKey = 'secret'
+
       const encryptedData = CryptoJS.AES.encrypt(
         JSON.stringify(data),
         secretKey
       ).toString()
+      
       const _studentAddress = data.AccountNumber
       const _studentData = encryptedData
        await registerStudent(_studentAddress,_studentData);

@@ -18,7 +18,7 @@ export default function AppContextProvider ({children}) {
     const [account, setAccount] = useState("");
     const [contract, setContract] = useState(null);
     const [provider, setProvider] = useState(null);
-    const [contractAddress, setContractAddress] = useState("0x89DDabB3D72913a5F646F99820d3BDa5BEdAadE2");
+    const [contractAddress, setContractAddress] = useState("0xd3Ed5387FCB9EE99adC0b9E6F87FB9b0e793d647");
     const [certificateData, SetCertificateData] = useState({});
     const [showSlider, SetShowSlider] = useState(false);
     const [index,setIndex] = useState(-1);
@@ -203,8 +203,7 @@ export default function AppContextProvider ({children}) {
 
     async function createCertificate(_studentAddress,_instituteAddress,_courseName,_transactionHash,_ipfsHash){
       try{
-        await enrollStudentInCourse(_studentAddress, _instituteAddress, _courseName);
-        await contract.createCertificate(_studentAddress,_instituteAddress,_courseName,_transactionHash);
+        await contract.createCertificate(_studentAddress,_instituteAddress,_courseName,_transactionHash,_ipfsHash);
       } catch(error){
             if (error.data) {
               const abiCoder = new ethers.utils.AbiCoder();
